@@ -9,14 +9,14 @@ const busqueda = defineModel({
 <template>
   <div class="contenedor-buscador">
     <label for="campo-busqueda">
-      🔍 Filtrar por marca de carro en el servidor:
+      🔍 Buscar vehículo por marca o modelo:
     </label>
     <div class="caja-input">
       <input
         id="campo-busqueda"
         v-model="busqueda"
         type="text"
-        placeholder="Escribe una marca (ej: Toyota, Ford, Chevrolet, Mazda, BMW, Audi)..."
+        placeholder="Ej: Toyota, Ford, Mazda, Chevrolet..."
         autocomplete="off"
       />
       <button
@@ -30,7 +30,7 @@ const busqueda = defineModel({
       </button>
     </div>
     <span v-if="busqueda" class="indicador-busqueda">
-      Consultando servidor para la marca: <strong>"{{ busqueda }}"</strong>
+      Filtrando resultados por: <strong>"{{ busqueda }}"</strong>
     </span>
   </div>
 </template>

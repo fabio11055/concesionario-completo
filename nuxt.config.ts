@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
+  ssr: false,
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   devServer: {

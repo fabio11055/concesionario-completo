@@ -26,11 +26,11 @@ defineProps({
     <div class="detalles">
       <div class="fila-detalle">
         <span class="label-info">Categoría:</span>
-        <span class="valor-info">{{ vehiculo.categoria || vehiculo.category }}</span>
+        <span class="valor-info">{{ vehiculo.categoria }}</span>
       </div>
       <div class="fila-detalle">
         <span class="label-info">Año:</span>
-        <span class="valor-info">{{ vehiculo.anio || vehiculo.year }}</span>
+        <span class="valor-info">{{ vehiculo.anio }}</span>
       </div>
       <div class="fila-detalle">
         <span class="label-info">Color:</span>
@@ -39,7 +39,7 @@ defineProps({
       <div class="precio-bloque">
         <span class="precio-label">Precio</span>
         <span class="precio-monto">
-          ${{ Number(vehiculo.precio || vehiculo.price || 0).toLocaleString('en-US') }} USD
+          ${{ Number(vehiculo.precio).toLocaleString('en-US') }} {{ vehiculo.currency }}
         </span>
       </div>
     </div>
