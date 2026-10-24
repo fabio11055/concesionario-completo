@@ -1,13 +1,8 @@
-import { useStoreAuth } from '~/stores/auth'
+import { useAdminStore } from '~/stores/admin'
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  const authStore = useStoreAuth()
-
-  if (!authStore.esAdmin) {
-    // Redirige al inicio si no es administrador
-    return navigateTo({
-      path: '/',
-      query: { alerta: 'acceso-denegado' },
-    })
+  if (import.meta.client) {
+    const adminStore = useAdminStore()
+    adminStore.verificarSesion()
   }
 })

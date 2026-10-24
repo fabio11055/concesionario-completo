@@ -1,76 +1,49 @@
 <script setup>
-// Props para recibir ID y disponibilidad del vehículo
-const props = defineProps({
-  vehiculoId: {
-    type: [Number, String],
-    required: true,
-  },
-  disponible: {
-    type: Boolean,
-    default: true,
-  },
+// Props: recibe si el vehículo está disponible y su ID
+defineProps({
+  vehiculoId: [Number, String],
+  disponible: { type: Boolean, default: true }
 })
 
-// Declaración del evento emitido hacia el padre mediante defineEmits
-const emit = defineEmits(['solicitar', 'reservar'])
-
-function manejarClic() {
-  if (props.disponible) {
-    emit('solicitar', props.vehiculoId)
-    emit('reservar', props.vehiculoId)
-  }
-}
+// Emit: avisa a la página padre cuando el usuario hace clic
+const emit = defineEmits(['solicitar'])
 </script>
 
 <template>
   <button
-    type="button"
-    class="btn-solicitar"
-    :class="{ 'btn-disponible': disponible, 'btn-agotado': !disponible }"
+    class="btn-reserva"
+    :class="disponible ? 'disponible' : 'agotado'"
     :disabled="!disponible"
-    @click="manejarClic"
+    @click="emit('solicitar', vehiculoId)"
   >
-    <span v-if="disponible">📋 Solicitar vehículo</span>
-    <span v-else>🚫 No Disponible</span>
+    {{ disponible ? '📋 Solicitar vehículo' : '🚫 No Disponible' }}
   </button>
 </template>
 
 <style scoped>
-.btn-solicitar {
+.btn-reserva {
   width: 100%;
-  padding: 11px 16px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.92rem;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  transition: 0.2s;
 }
 
-.btn-disponible {
+.disponible {
   background-color: #2563eb;
-  color: white;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  color: #ffffff;
 }
 
-.btn-disponible:hover {
+.disponible:hover {
   background-color: #1d4ed8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
-.btn-disponible:active {
-  transform: scale(0.98);
-}
-
-.btn-agotado {
-  background-color: #cbd5e1;
-  color: #64748b;
+.agotado {
+  background-color: #e2e8f0;
+  color: #475569;
   cursor: not-allowed;
-  box-shadow: none;
 }
 </style>

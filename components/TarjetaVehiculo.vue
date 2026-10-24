@@ -1,156 +1,116 @@
 <script setup>
-// Recibe los datos del vehículo mediante Props
+// Recibe el objeto con los datos del vehículo
 defineProps({
-  vehiculo: {
-    type: Object,
-    required: true,
-  },
+  vehiculo: { type: Object, required: true }
 })
 </script>
 
 <template>
-  <div class="tarjeta-carro">
-    <div class="encabezado">
+  <div class="tarjeta">
+    <!-- Encabezado con marca, modelo y estado -->
+    <div class="cabecera">
       <div>
-        <span class="etiqueta-marca">{{ vehiculo.marca }}</span>
-        <h3 class="modelo-titulo">{{ vehiculo.modelo }}</h3>
+        <span class="marca">{{ vehiculo.marca }}</span>
+        <h3>{{ vehiculo.modelo }}</h3>
       </div>
-      <span
-        class="estado"
-        :class="vehiculo.disponible ? 'disponible' : 'agotado'"
-      >
+      <span class="badge" :class="vehiculo.disponible ? 'disponible' : 'agotado'">
         {{ vehiculo.disponible ? 'Disponible' : 'Agotado' }}
       </span>
     </div>
 
+    <!-- Especificaciones técnicas -->
     <div class="detalles">
-      <div class="fila-detalle">
-        <span class="label-info">Categoría:</span>
-        <span class="valor-info">{{ vehiculo.categoria || vehiculo.category }}</span>
-      </div>
-      <div class="fila-detalle">
-        <span class="label-info">Año:</span>
-        <span class="valor-info">{{ vehiculo.anio || vehiculo.year }}</span>
-      </div>
-      <div class="fila-detalle">
-        <span class="label-info">Color:</span>
-        <span class="valor-info">{{ vehiculo.color }}</span>
-      </div>
-      <div class="precio-bloque">
-        <span class="precio-label">Precio</span>
-        <span class="precio-monto">
-          ${{ Number(vehiculo.precio || vehiculo.price || 0).toLocaleString('en-US') }} USD
-        </span>
+      <p><span>Categoría:</span> <strong>{{ vehiculo.categoria }}</strong></p>
+      <p><span>Año:</span> <strong>{{ vehiculo.anio }}</strong></p>
+      <p><span>Color:</span> <strong>{{ vehiculo.color }}</strong></p>
+      <div class="precio">
+        <span>Precio:</span>
+        <strong class="monto">${{ Number(vehiculo.precio).toLocaleString() }} {{ vehiculo.currency || 'USD' }}</strong>
       </div>
     </div>
 
-    <!-- Slot opcional por si se desea incrustar acciones dentro de la tarjeta -->
     <slot />
   </div>
 </template>
 
 <style scoped>
-.tarjeta-carro {
+.tarjeta {
+  background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 18px;
-  background-color: #ffffff;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease-in-out;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.tarjeta-carro:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-}
-
-.encabezado {
+.cabecera {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #f1f5f9;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
-.etiqueta-marca {
-  display: inline-block;
+.marca {
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   font-weight: 700;
-  color: #2563eb;
-  background-color: #eff6ff;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  background: #eff6ff;
   padding: 2px 8px;
   border-radius: 4px;
-  margin-bottom: 4px;
 }
 
-.modelo-titulo {
-  margin: 0;
+h3 {
+  margin: 4px 0 0;
   font-size: 1.15rem;
-  font-weight: 700;
   color: #0f172a;
 }
 
-.estado {
+.badge {
   font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: 20px;
   font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
 }
 
-.estado.disponible {
-  background-color: #dcfce7;
-  color: #15803d;
+.disponible {
+  background: #dcfce7;
+  color: #166534;
 }
 
-.estado.agotado {
-  background-color: #fee2e2;
-  color: #b91c1c;
+.agotado {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
-.detalles {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.fila-detalle {
+.detalles p {
   display: flex;
   justify-content: space-between;
+  margin: 4px 0;
   font-size: 0.88rem;
+  color: #334155;
 }
 
-.label-info {
+.detalles p span {
   color: #64748b;
-  font-weight: 500;
 }
 
-.valor-info {
-  color: #1e293b;
-  font-weight: 600;
-}
-
-.precio-bloque {
-  margin-top: 6px;
-  padding-top: 8px;
-  border-top: 1px dashed #e2e8f0;
+.precio {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 8px;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #334155;
 }
 
-.precio-label {
-  font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 600;
-}
-
-.precio-monto {
-  color: #2563eb;
+.monto {
   font-size: 1.2rem;
-  font-weight: 800;
+  color: #2563eb;
 }
 </style>

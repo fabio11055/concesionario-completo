@@ -1,42 +1,25 @@
 <script setup>
-// Implementación de v-model bidireccional con defineModel (Vue 3)
-const busqueda = defineModel({
-  type: String,
-  default: '',
-})
+// defineModel sincroniza automáticamente el texto con el componente padre (v-model)
+const busqueda = defineModel({ type: String, default: '' })
 </script>
 
 <template>
-  <div class="contenedor-buscador">
-    <label for="campo-busqueda">
-      🔍 Filtrar por marca de carro en el servidor:
-    </label>
+  <div class="buscador">
+    <label for="buscar">🔍 Buscar vehículo por marca o modelo:</label>
     <div class="caja-input">
       <input
-        id="campo-busqueda"
+        id="buscar"
         v-model="busqueda"
         type="text"
-        placeholder="Escribe una marca (ej: Toyota, Ford, Chevrolet, Mazda, BMW, Audi)..."
-        autocomplete="off"
+        placeholder="Ej: Toyota, Ford, Mazda, Chevrolet..."
       />
-      <button
-        v-if="busqueda"
-        class="btn-borrar"
-        type="button"
-        title="Limpiar filtro"
-        @click="busqueda = ''"
-      >
-        ✕
-      </button>
+      <button v-if="busqueda" type="button" title="Borrar búsqueda" @click="busqueda = ''">✕</button>
     </div>
-    <span v-if="busqueda" class="indicador-busqueda">
-      Consultando servidor para la marca: <strong>"{{ busqueda }}"</strong>
-    </span>
   </div>
 </template>
 
 <style scoped>
-.contenedor-buscador {
+.buscador {
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
@@ -44,64 +27,45 @@ const busqueda = defineModel({
 }
 
 label {
+  color: #ffffff;
   font-weight: 700;
   font-size: 0.95rem;
-  color: #1e293b;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .caja-input {
   position: relative;
   display: flex;
-  align-items: center;
 }
 
 input {
   width: 100%;
-  padding: 12px 42px 12px 16px;
+  padding: 12px 42px 12px 14px;
   border: 2px solid #cbd5e1;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1rem;
-  outline: none;
-  box-sizing: border-box;
   background-color: #ffffff;
   color: #0f172a;
-  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
 }
 
 input:focus {
   border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
-.btn-borrar {
+button {
   position: absolute;
   right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   background: #e2e8f0;
   border: none;
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  color: #475569;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.btn-borrar:hover {
-  background-color: #cbd5e1;
+  font-weight: 700;
   color: #0f172a;
-}
-
-.indicador-busqueda {
-  font-size: 0.85rem;
-  color: #2563eb;
-  font-weight: 500;
 }
 </style>

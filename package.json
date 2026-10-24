@@ -2,6 +2,9 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "imports": {
+    "#internal/nuxt/paths": "./node_modules/nuxt/dist/core/runtime/nitro/paths.js"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --port 3000",
