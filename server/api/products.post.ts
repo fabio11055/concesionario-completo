@@ -2,6 +2,7 @@ import { readDbData, writeDbData } from '../utils/db'
 
 // Endpoint para agregar un nuevo vehículo al inventario
 export default defineEventHandler(async (event) => {
+  //lee el cuerpo de la solicitud
   const body = await readBody(event)
 
   if (!body.marca || !body.modelo) {

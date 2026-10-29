@@ -65,7 +65,7 @@ function irAReservar(id) {
           ➕ Mostrar más carros (+5)
         </button>
         <p v-else-if="!store.modoFiltroActivo" class="caja-mensaje">
-          🏁 Has cargado los {{ store.totalEnServidor }} vehículos disponibles en el sistema.
+          Has cargado los {{ store.totalEnServidor }} vehículos disponibles en el sistema.
         </p>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { readDbData, writeDbData } from '../../utils/db'
 export default defineEventHandler(async (event) => {
   const method = getMethod(event)
   const id = getRouterParam(event, 'id') || (event.context.params as any)?.id
-  const body = method !== 'DELETE' ? await readBody(event) : null
+  const   body = method !== 'DELETE' ? await readBody(event) : null
 
   // 1. Intentar comunicar con json-server (puerto 3001)
   try {
@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
 
     // EDITAR O CAMBIAR ESTADO (PUT o PATCH)
     const index = db.reservas.findIndex((r: any) => String(r.id) === String(id))
+    // Si no se encuentra la reserva, devolver un error 404
     if (index === -1) {
       throw createError({
         statusCode: 404,
@@ -36,6 +37,7 @@ export default defineEventHandler(async (event) => {
     }
 
     db.reservas[index] = {
+      // Mantener los datos existentes y sobrescribir con los nuevos
       ...db.reservas[index],
       ...body,
     }

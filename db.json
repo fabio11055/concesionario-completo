@@ -215,5 +215,6 @@
       "observaciones": "",
       "fechaCreacion": "2026-10-24T16:38:44.561Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

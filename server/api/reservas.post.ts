@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       estado: body.estado || 'Pendiente',
       fechaCreacion: body.fechaCreacion || new Date().toISOString(),
     }
-
+// Intentamos persistir la reserva en db.json
     try {
       const db = readDbData()
       if (!Array.isArray(db.reservas)) {

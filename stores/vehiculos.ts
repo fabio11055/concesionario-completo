@@ -15,7 +15,7 @@ export const useVehiculosStore = defineStore('vehiculos', {
   }),
 
   getters: {
-    // Total de carros disponibles en el servidor
+    // Total de carros disponibles en el servidor // lenght cuenta cuantos elementos hay en el array
     totalEnServidor: (state) => state.todosLosCarros.length,
     // Verifica si ya se mostraron todos los carros
     sinMasAutos: (state) => state.listaVehiculos.length >= state.todosLosCarros.length,
@@ -43,15 +43,18 @@ export const useVehiculosStore = defineStore('vehiculos', {
 
     // Muestra 5 carros más
     cargarMas() {
+      //condiciona si ya se mostraron todos los carros, si es así no hace nada
       if (this.sinMasAutos) return
       this.cantidadVisible += 5
+                            //toma una copia de los carros que ya se mostraban y le agrega 5 más
       this.listaVehiculos = this.todosLosCarros.slice(0, this.cantidadVisible)
     },
 
     // Filtra los vehículos según lo que escriba el usuario
     buscarPorMarca(texto = '') {
+                      //elimina todo el espacio en blanco y lo pasa a minúscula
       const palabra = texto.trim().toLowerCase()
-
+      //comprueba si es un string vacio
       if (!palabra) {
         this.modoFiltroActivo = false
         this.listaVehiculos = this.todosLosCarros.slice(0, this.cantidadVisible)
@@ -66,3 +69,5 @@ export const useVehiculosStore = defineStore('vehiculos', {
     }
   }
 })
+
+// (estate) estado actual del store  
